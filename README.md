@@ -1,21 +1,13 @@
-✅ Add a Professional README (very important)
-
-This will make your GitHub project look 10× better — especially if anyone checks your profile or if you use this in your resume.
-
-⭐ I will create a perfect README for you
-
-Just click "Add a README" on GitHub, and paste the following:
-
-📌 Kodbud Python Programming Internship
-🚀 Tasks Completed: Task 1, Task 2, Task 3, Task 5
+Kodbud Python Programming Internship
+Completed Tasks: Task 1 to Task 8
 
 This repository contains all Python tasks completed as part of the Kodbud Python Programming Internship.
-The tasks focus on Python basics, user interaction, logic building, and file manipulation.
+Each task focuses on developing strong fundamentals in Python, including user input, logic building, file handling, automation, regex, API usage, and basic CLI applications.
 
-📂 Projects Included
+📂 Project Structure (All 8 Tasks)
 ✅ Task 1 — Simple Calculator
 
-A basic Python calculator that performs:
+A command-line calculator that performs:
 
 Addition
 
@@ -25,58 +17,132 @@ Multiplication
 
 Division
 
-🗂 Folder: Task1_Simple_calculator
+📁 Folder: Task1_Simple_calculator
 
 ✅ Task 2 — Number Guessing Game
 
-A fun game where:
+A fun guessing game where:
 
-Computer generates a random number
+Computer generates a random number (1–100)
 
-User tries to guess it
+User guesses until correct
 
-Feedback is given after each guess
+Program gives hints like “Too high” or “Too low”
 
-🗂 Folder: Task2_Number_Guessing
+📁 Folder: Task2_Number_Guessing
 
 ✅ Task 3 — Contact Book
 
-A command-line contact manager that allows:
+A CLI-based contact management system that supports:
 
-Adding contacts
+Add contact
 
-Viewing contacts
+View contacts
 
-Searching contacts
+Search contacts
 
-Deleting contacts
+Delete contacts
 
-🗂 Folder: Task3_contact_book
+📁 Folder: Task3_contact_book
 
-❇️ Task 5 — Password Strength Checker
+✅ Task 4 — File Renaming Automation
 
-A Python script that checks if a password is:
+A Python script that:
 
-At least 8 characters
+Takes a folder path
 
-Has uppercase letters
+Renames files to file_1, file_2, etc.
 
-Has lowercase letters
+Uses os module for automation
 
-Contains digits
+📁 Folder: Task4_File_Renamer
 
-Has special characters
+✅ Task 5 — Password Strength Checker
 
-🗂 Folder: Task5_Password_checker
+Validates password strength based on:
 
-📎 Video Demonstrations
+Minimum 8 characters
 
-All task demonstration videos are uploaded on LinkedIn.
+At least 1 uppercase letter
 
-👨‍💻 Developed by:
+At least 1 lowercase letter
+
+At least 1 digit
+
+At least 1 special character
+
+📁 Folder: Task5_Password_checker
+
+✅ Task 6 — YouTube Video Downloader
+
+A Python script using pytube that:
+
+Accepts a YouTube URL
+
+Fetches the highest-resolution stream
+
+Downloads the video locally
+
+Includes error handling
+
+📁 Folder: Task6_Youtube_Downloader
+
+✅ Task 7 — Weather App (OpenWeather API)
+
+A console-based weather application that:
+
+Accepts city name
+
+Fetches weather data using OpenWeatherMap API
+
+Displays temperature, humidity, and conditions
+
+Uses requests & JSON parsing
+
+📁 Folder: Task7_Weather_App
+
+✅ Task 8 — Simple Chatbot
+
+A rule-based chatbot that:
+
+Responds to greetings
+
+Replies to FAQs
+
+Uses simple if-elif logic
+
+Runs in command-line
+
+📁 Folder: Task8_Chatbot
+
+🎥 Video Demonstrations
+
+All task demo videos are uploaded on my LinkedIn profile as required by Kodbud.
+
+🔗 LinkedIn Profile: (Add your profile/post link here)
+
+🛠 Technologies Used
+
+Python 3
+
+VS Code
+
+Git & GitHub
+
+OS Module
+
+Regular Expressions
+
+Pytube
+
+Requests (API Handling)
+
+👨‍💻 Developer
 
 Lacshan Shakthivel
-GitHub: https://github.com/Lacshan-70
+GitHub Profile → https://github.com/Lacshan-70
 
-⭐ If you like this project, don’t forget to star the repository!
 
+LinkedIn → (www.linkedin.com/in/lacshan-shakthivel)
+
+⭐ If you found this project useful, consider giving the repository a star!
