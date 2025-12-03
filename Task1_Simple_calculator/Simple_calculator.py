@@ -1,12 +1,65 @@
+"""
+================================================================================
+                        SIMPLE CALCULATOR PROGRAM
+================================================================================
+
+PROGRAM DESCRIPTION:
+    This is an interactive calculator application that performs basic arithmetic
+    operations. Users can select from various mathematical operations and input
+    two operands to get the calculated result. The program continues to run until
+    the user chooses to exit.
+
+SUPPORTED OPERATIONS:
+    1. Addition        - Adds two numbers (a + b)
+    2. Subtraction     - Subtracts second number from first (a - b)
+    3. Multiplication  - Multiplies two numbers (a × b)
+    4. Division        - Divides first number by second (a ÷ b)
+                         * Includes zero-division error handling
+    5. Exit            - Terminates the program
+
+FEATURES:
+    • User-friendly menu interface
+    • Input validation for numeric values
+    • Error handling for division by zero
+    • Continuous operation until user chooses to exit
+    • User confirmation after each calculation
+
+DEVELOPED BY: Lacshan Shakthivel (student ID: 24MZ301)
+College Name: St.Josephs College of Engineering
+DATE: December 3, 2025
+PROJECT: Kodbud Internship Dec 2025 - Python Programming
+
+================================================================================
+"""
+
+
+def validate_choice(choice):
+    """
+    Validates if the user's choice is valid (1-5).
+    
+    Args:
+        choice (str): The user's input choice
+    
+    Returns:
+        bool: True if choice is valid, False otherwise
+    """
+    try:
+        choice_num = int(choice)
+        return 1 <= choice_num <= 5
+    except ValueError:
+        return False
+
+
 def get_user_input():
     """
     Collects user input for the calculator operation.
     Displays menu options and prompts for operation choice and two operands.
+    Validates choice before requesting numeric inputs.
     
     Returns:
         tuple: (choice, num1, num2) where choice is the operation selection (1-5)
                and num1, num2 are the operands. Returns (None, None, None) if user
-               chooses to exit.
+               chooses to exit or enters invalid choice.
     """
     print("\n--- Simple Calculator ---")
     print("1. Addition")
@@ -15,11 +68,16 @@ def get_user_input():
     print("4. Division")
     print("5. Exit")
 
-    choice = input("Enter choice (1-5): ")
-
-    if choice == '5':
-        print("Exiting...")
-        return None, None, None
+    while True:
+        choice = input("Enter choice (1-5): ")
+        
+        if validate_choice(choice):
+            if choice == '5':
+                print("Exiting...")
+                return None, None, None
+            break
+        else:
+            print("❌ Invalid choice! Please enter a number between 1 and 5.")
 
     try:
         a = float(input("Enter first number: "))
