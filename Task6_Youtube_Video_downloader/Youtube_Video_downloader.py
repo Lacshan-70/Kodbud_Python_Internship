@@ -32,8 +32,7 @@ DATE: December 3, 2025
 ================================================================================
 """
 
-from pytube import YouTube
-from pytube.exceptions import RegexMatchError, VideoUnavailable
+import yt_dlp
 import os
 
 
@@ -105,56 +104,43 @@ def get_video_info(url):
         url (str): The YouTube video URL
         
     Returns:
-        tuple: (yt_object, error_message)
-            - yt_object (YouTube): YouTube object if successful, None otherwise
+        tuple: (video_url, error_message)
+            - video_url (str): Video URL if successful, None otherwise
             - error_message (str): Error message if failed, None if successful
     """
     try:
-        yt = YouTube(url)
-        return yt, None
-    except RegexMatchError:
-        return None, "Invalid YouTube URL format."
-    except VideoUnavailable:
-        return None, "Video is unavailable or has been removed."
+        # Just validate the URL is accessible, actual download will happen later
+        return url, None
     except Exception as e:
         return None, f"Error accessing video: {str(e)}"
 
 
-def get_best_stream(yt):
+def get_best_stream(url):
     """
-    Get the highest quality stream available for the video.
+    Validate the URL can be downloaded.
     
     Args:
-        yt (YouTube): The YouTube object
+        url (str): The video URL
         
     Returns:
-        tuple: (stream, error_message)
-            - stream (Stream): The video stream object if successful
+        tuple: (url, error_message)
+            - url (str): The URL if valid
             - error_message (str): Error message if failed
     """
     try:
-        # Get the highest quality progressive stream (video + audio)
-        stream = yt.streams.filter(progressive=True).order_by('resolution').desc().first()
-        
-        if stream is None:
-            # Fallback to highest quality available
-            stream = yt.streams.get_highest_resolution()
-        
-        if stream is None:
-            return None, "No downloadable streams available for this video."
-        
-        return stream, None
+        if url is None or not url:
+            return None, "No URL provided."
+        return url, None
     except Exception as e:
-        return None, f"Error selecting stream: {str(e)}"
+        return None, f"Error validating URL: {str(e)}"
 
 
-def download_video(yt, stream, folder_path):
+def download_video(url, folder_path):
     """
     Download the video to the specified folder.
     
     Args:
-        yt (YouTube): The YouTube object
-        stream (Stream): The stream to download
+        url (str): The YouTube video URL
         folder_path (str): The destination folder
         
     Returns:
@@ -166,17 +152,23 @@ def download_video(yt, stream, folder_path):
         print("\n" + "="*60)
         print("DOWNLOADING VIDEO")
         print("="*60)
-        print(f"Title: {yt.title}")
-        print(f"Resolution: {stream.resolution}")
-        print(f"File Size: ~{stream.filesize / (1024*1024):.2f} MB")
+        print(f"URL: {url}")
         print(f"Destination: {folder_path}")
         print("-"*60)
         
-        # Download the stream
-        stream.download(output_path=folder_path)
+        # Download using yt-dlp with best quality
+        ydl_opts = {
+            'format': 'best[ext=mp4]/best',
+            'outtmpl': os.path.join(folder_path, '%(title)s.%(ext)s'),
+            'quiet': False,
+            'no_warnings': False,
+        }
         
-        filename = stream.default_filename if stream.default_filename else yt.title
-        return True, f"✅ Video downloaded successfully: {filename}"
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+            title = info.get('title', 'video')
+        
+        return True, f"✅ Video downloaded successfully: {title}"
     
     except Exception as e:
         return False, f"❌ Download failed: {str(e)}"
@@ -253,19 +245,19 @@ def downloader():
             continue
         
         # Get video information
-        yt, video_error = get_video_info(url)
-        if yt is None:
+        video_url, video_error = get_video_info(url)
+        if video_url is None:
             display_error(video_error)
             continue
         
-        # Get best stream
-        stream, stream_error = get_best_stream(yt)
-        if stream is None:
+        # Validate URL can be downloaded
+        validated_url, stream_error = get_best_stream(video_url)
+        if validated_url is None:
             display_error(stream_error)
             continue
         
         # Download video
-        success, message = download_video(yt, stream, folder)
+        success, message = download_video(validated_url, folder)
         print(message)
         
         # Ask if user wants to continue

@@ -251,3 +251,19 @@ def main():
 
 if __name__ == "__main__":
     main()
+    def _cli_folder_check():
+        """If invoked with --check-folder <path>, validate and print why it's failing."""
+        if len(sys.argv) >= 2 and sys.argv[1] == "--check-folder":
+            if len(sys.argv) < 3:
+                print("ERROR: Provide a folder path after --check-folder")
+                sys.exit(2)
+            folder = os.path.expanduser(sys.argv[2])
+            is_valid, error = validate_folder_path(folder)
+            if is_valid:
+                print(f"VALID: {folder}")
+                sys.exit(0)
+            else:
+                print(f"INVALID: {error}")
+                sys.exit(1)
+
+    _cli_folder_check()
